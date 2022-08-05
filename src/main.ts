@@ -13,6 +13,7 @@ async function bootstrap() {
     .setDescription('Aplicação para visualização e cadastro de alunos com enfermidade na coluna.')
     .setVersion('1.0.0')
     .addTag('status')
+    .addTag('auth')
     .addTag('user')
     .addTag('students')
     .addTag('instituition')
