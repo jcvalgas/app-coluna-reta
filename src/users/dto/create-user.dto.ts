@@ -29,7 +29,7 @@ export class CreateUserDto {
 
   @ApiProperty({
     description: 'If user is admin or server',
-    example: true,
+    example: false,
   })
   @IsBoolean()
   role?: boolean;

@@ -15,7 +15,7 @@ async function bootstrap() {
     .addTag('status')
     .addTag('auth')
     .addTag('user')
-    .addTag('students')
+    .addTag('student')
     .addTag('instituition')
     .build();
 
