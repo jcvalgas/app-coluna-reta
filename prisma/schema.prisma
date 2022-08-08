@@ -18,7 +18,7 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
-model Instituition {
+model Institution {
   id          String @id @default(uuid())
   name        String @unique
   address     String
