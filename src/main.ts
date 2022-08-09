@@ -18,7 +18,7 @@ async function bootstrap() {
     .addTag('auth')
     .addTag('user')
     .addTag('student')
-    .addTag('instituition')
+    .addTag('institute')
     .addBearerAuth()
     .build();
 
