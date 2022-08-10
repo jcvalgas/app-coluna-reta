@@ -9,9 +9,8 @@ export class StudentsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: CreateStudentDto) {
-    const data: Student = { ...dto };
     return await this.prisma.student.create({
-      data,
+      data: dto,
       select: {
         name: true,
         photo: true,
