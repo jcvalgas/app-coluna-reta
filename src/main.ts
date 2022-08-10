@@ -10,13 +10,16 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Coluna Reta')
-    .setDescription('Aplicação para visualização e cadastro de alunos com enfermidade na coluna.')
+    .setDescription(
+      'Aplicação para visualização e cadastro de alunos com enfermidade na coluna.',
+    )
     .setVersion('1.0.0')
     .addTag('status')
     .addTag('auth')
     .addTag('user')
     .addTag('student')
-    .addTag('instituition')
+    .addTag('institute')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

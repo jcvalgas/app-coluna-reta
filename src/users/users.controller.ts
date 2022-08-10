@@ -6,11 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('user')
 @Controller('users')
@@ -32,6 +34,8 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @Get()
   @ApiOperation({
     summary: 'View all users',
@@ -40,6 +44,8 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @Get(':id')
   @ApiOperation({
     summary: 'View users by id or email',
@@ -48,6 +54,8 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @Patch(':id')
   @ApiOperation({
     summary: 'Edit users by id email',
@@ -56,6 +64,8 @@ export class UsersController {
     return this.usersService.update(id, updateUserDto);
   }
 
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @Delete(':id')
   @ApiOperation({
     summary: 'Delete users by id or email',

@@ -41,6 +41,7 @@ export class UsersService {
     });
   }
 
+
   async update(id: string, dto: UpdateUserDto) {
     const data: Partial<User> = { ...dto };
     return await this.prisma.user.update({
