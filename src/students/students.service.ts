@@ -2,37 +2,61 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
+import { Student } from './entities/student.entity';
 
 @Injectable()
 export class StudentsService {
-  private studentSelect = {
-    id: true,
-    name: true,
-    photo: true,
-    description: true,
-  };
   constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: CreateStudentDto) {
+    const data: Student = { ...dto };
     return await this.prisma.student.create({
-      data: dto
-      select: this.studentSelect,
+      data,
+      select: {
+        name: true,
+        photo: true,
+        description: true,
+      },
     });
   }
 
   async findAll() {
-    return await this.prisma.user.findMany({ select: this.studentSelect });
+    return await this.prisma.student.findMany({
+      select: {
+        name: true,
+        photo: true,
+        description: true,
+      },
+    });
   }
 
   async findOne(id: string) {
-    return `This action returns a #${id} student`;
+    return await this.prisma.student.findUnique({
+      where: { id },
+      include: {
+        institute: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
   }
 
   async update(id: string, dto: UpdateStudentDto) {
-    return `This action updates a #${id} student`;
+    const data: Partial<Student> = { ...dto };
+    return await this.prisma.student.update({
+      where: { id },
+      data,
+    });
   }
 
   async remove(id: string) {
-    return `This action removes a #${id} student`;
+    await this.prisma.student.delete({
+      where: {
+        id,
+      },
+    });
+    return { message: 'Student successfully deleted' };
   }
 }
