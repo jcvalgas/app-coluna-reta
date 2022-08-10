@@ -7,6 +7,13 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  /**
+   * Recebe uma requisição GET e retorna um objeto de status
+   * da aplicação da URL de documentação
+   * @param req Objeto de Request do Express
+   * @returns Objeto de status da aplicação
+  */
+
   @Get()
   @ApiOperation({
 		summary: "View application status",
