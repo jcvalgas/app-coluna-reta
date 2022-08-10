@@ -16,7 +16,6 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
-
 @ApiTags('institute')
 @Controller('institutes')
 export class InstitutesController {
@@ -38,12 +37,14 @@ export class InstitutesController {
     return this.institutesService.findAll();
   }
 
+  
+
   @Get(':id')
   @ApiOperation({
     summary: 'View institutes by id',
   })
   findOne(@Param('id') id: string) {
-    return this.institutesService.findOne(+id);
+    return this.institutesService.findOne(id);
   }
 
   @Patch(':id')
@@ -54,7 +55,7 @@ export class InstitutesController {
     @Param('id') id: string,
     @Body() updateInstituteDto: UpdateInstituteDto,
   ) {
-    return this.institutesService.update(+id, updateInstituteDto);
+    return this.institutesService.update(id, updateInstituteDto);
   }
 
   @Delete(':id')
@@ -62,6 +63,6 @@ export class InstitutesController {
     summary: 'Delete institutes by id or email',
   })
   remove(@Param('id') id: string) {
-    return this.institutesService.remove(+id);
+    return this.institutesService.remove(id);
   }
 }
