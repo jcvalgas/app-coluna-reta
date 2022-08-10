@@ -8,7 +8,9 @@ export class InstitutesService {
   constructor(private readonly prisma: PrismaService) {}
   
   async create(dto: CreateInstituteDto) {
-    return 'This action adds a new institute';
+    return await this.prisma.institute.create({
+      data
+    });
   }
 
   async findAll() {
