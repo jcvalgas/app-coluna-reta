@@ -1,7 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDate, IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
+import { IsDate, IsNotEmpty, IsPhoneNumber, IsString, IsUUID } from 'class-validator';
 
 export class CreateStudentDto {
+
   @ApiProperty({
     description: 'Student`s name',
     example: 'Tony',
@@ -44,4 +45,22 @@ export class CreateStudentDto {
   @IsString()
   @IsNotEmpty()
   description: string;
+
+  @ApiProperty({
+    description: 'Username responsible for the registration',
+    example: 'Bruna',
+  })
+  @IsString()
+  @IsNotEmpty()
+  @IsUUID()
+  userId: string;
+
+  @ApiProperty({
+    description: 'Institute`s student',
+    example: 'Primary school',
+  })
+  @IsString()
+  @IsNotEmpty()
+  @IsUUID()
+  instituteId:string;
 }

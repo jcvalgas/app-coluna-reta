@@ -11,34 +11,23 @@ export class StudentsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: CreateStudentDto) {
-    return await this.prisma.student.create({
-      data: dto,
-      select: {
-        name: true,
-        birthDate: true,
-        phoneStudent: true,
-        photo: true,
-        description: true,
-      },
-    });
+    
+    return await this.prisma.student.create({ data: dto });
   }
 
-  
-
   async findAll() {
-    return await this.prisma.student.findMany({
-      select: {
-        name: true,
-        photo: true,
-        description: true,
-      },
-    });
+    return await this.prisma.student.findMany();
   }
 
   async findOne(id: string) {
-    return await this.prisma.student.findUnique({
+    return await this.prisma.student.findUnique({ 
       where: { id },
       include: {
+        user: {
+          select: {
+            name: true,
+          },
+        },
         institute: {
           select: {
             name: true,
@@ -46,7 +35,7 @@ export class StudentsService {
         },
       },
     });
-  }
+  }  
 
   async update(id: string, dto: UpdateStudentDto) {
     const data: Partial<Student> = { ...dto };
@@ -57,11 +46,7 @@ export class StudentsService {
   }
 
   async remove(id: string) {
-    await this.prisma.student.delete({
-      where: {
-        id,
-      },
-    });
+    await this.prisma.student.delete({ where: { id } });
     return { message: 'Student successfully deleted' };
   }
 }

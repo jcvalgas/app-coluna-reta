@@ -8,6 +8,7 @@ import { AuthGuard } from '@nestjs/passport';
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
 @ApiTags('student')
+
 @Controller('students')
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}

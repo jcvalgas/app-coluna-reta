@@ -26,5 +26,4 @@ export class CreateInstituteDto {
   @IsPhoneNumber()
   @IsNotEmpty()
   phoneNumber: string;
-  
 }
