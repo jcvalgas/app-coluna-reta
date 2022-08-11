@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { domainToASCII } from 'url';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { Student } from './entities/student.entity';
 
 @Injectable()
 export class StudentsService {
+  
   constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: CreateStudentDto) {
@@ -13,11 +15,15 @@ export class StudentsService {
       data: dto,
       select: {
         name: true,
+        birthDate: true,
+        phoneStudent: true,
         photo: true,
         description: true,
       },
     });
   }
+
+  
 
   async findAll() {
     return await this.prisma.student.findMany({

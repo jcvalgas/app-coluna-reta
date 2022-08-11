@@ -37,6 +37,10 @@ export class InstitutesController {
     return this.institutesService.findAll();
   }
 
+  // @Get('/students')
+  // findAllStudents() {
+  //   return this.institutesService.findAllStudents();
+  // }
   
 
   @Get(':id')

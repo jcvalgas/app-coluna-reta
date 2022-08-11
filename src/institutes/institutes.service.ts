@@ -9,12 +9,21 @@ export class InstitutesService {
   
   async create(dto: CreateInstituteDto) {
     return await this.prisma.institute.create({
-      data
+      data: dto
     });
   }
 
   async findAll() {
-    return `This action returns all institutes`;
+    return await this.prisma.institute.findMany({
+      include: {
+        students: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    });
   }
 
   // async findAllStudents() {

@@ -17,8 +17,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Student   Student[]
-  Institute Institute[]
+  students  Student[]
+  institutes Institute[]
 
   @@map("user")
 }
@@ -32,8 +32,8 @@ model Institute {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Student Student[]
-  User    User[]
+  students Student[]
+  users   User[]
 
   @@map("institute")
 }
