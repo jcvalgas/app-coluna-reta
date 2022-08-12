@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { User } from '@prisma/client';
 import { IsDate, IsNotEmpty, IsPhoneNumber, IsString, IsUUID } from 'class-validator';
 
 export class CreateStudentDto {
