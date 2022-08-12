@@ -11,34 +11,49 @@ model User {
   id       String  @id @default(uuid())
   name     String
   email    String  @unique
-  CPF      BigInt  @unique
   password String
-  function String
-  role     Boolean
+  role     Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  students  Student[]
+  institutes Institute[]
+
+  @@map("user")
 }
 
 model Institute {
-  id      String @id @default(uuid())
-  name    String @unique
-  address String
+  id          String @id @default(uuid())
+  name        String @unique
+  address     String
+  phoneNumber String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  students Student[]
+  users   User[]
+
+  @@map("institute")
 }
 
 model Student {
-  id          String @id @default(uuid())
-  name        String
-  CPF         BigInt @unique
-  photo       String
-  description String
-  birthDate   String
-  idStudent   String
-  idAgent     String
+  id           String @id @default(uuid())
+  name         String
+  birthDate    String
+  phoneStudent String
+  photo        String
+  description  String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
+
+  institute   Institute @relation(fields: [instituteId], references: [id])
+  instituteId String    @map("institute_id")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("student")
 }
