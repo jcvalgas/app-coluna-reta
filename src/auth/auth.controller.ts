@@ -21,15 +21,16 @@ export class AuthController {
   @Post()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
-    summary: 'Realizar login, recebendo um token de autenticação',
+    summary: 'Login, receiving an authentication token',
   })
   login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);
   }
+
   @Get()
   @UseGuards(AuthGuard())
   @ApiOperation({
-    summary: 'Retorna o usuário autenticado no momento',
+    summary: 'Returns the currently authenticated user',
   })
   @ApiBearerAuth()
   profile(@LoggedUser() user: User) {
