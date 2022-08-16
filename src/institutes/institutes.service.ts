@@ -1,53 +1,47 @@
 import { Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { User } from 'src/users/entities/user.entity';
+import { role } from 'src/utils/handle-admin.util';
+import { handleError } from 'src/utils/handle-error.util';
 import { CreateInstituteDto } from './dto/create-institute.dto';
 import { UpdateInstituteDto } from './dto/update-institute.dto';
+import { Institute } from './entities/institute.entity';
 
 @Injectable()
 export class InstitutesService {
   constructor(private readonly prisma: PrismaService) {}
-  
-  async create(dto: CreateInstituteDto) {
-    return await this.prisma.institute.create({
-      data: dto
-    });
+
+  async create(dto: CreateInstituteDto, user: User) {
+    role(user);
+    const data: Institute = { ...dto };
+    return await this.prisma.institute
+    .create({ data })
+    .catch(handleError);
   }
 
   async findAll() {
-    return await this.prisma.institute.findMany({
-      include: {
-        students: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
-      },
-    });
+    return await this.prisma.institute.findMany();
   }
-
-  // async findAllStudents() {
-  //   return await this.prisma.students.findMany({
-  //     include: {
-  //       students: {
-  //         select: {
-  //           id: true,
-  //           name: true,
-  //         },
-  //       },
-  //     },
-  //   });
-  // }
 
   async findOne(id: string) {
-    return `This action returns a #${id} institute`;
+    return await this.prisma.institute.findUnique({ where: { id } });
   }
 
-  async update(id: string, dto: UpdateInstituteDto) {
-    return `This action updates a #${id} institute`;
+  async update(id: string, dto: UpdateInstituteDto, user: User) {
+    role(user);
+    const data: Partial<Institute> = { ...dto };
+    return await this.prisma.institute
+    .update({
+      where: { id },
+      data
+    })
+    .catch(handleError);
   }
 
-  async remove(id: string) {
-    return `This action removes a #${id} institute`;
+  async remove(id: string, user: User) {
+    role(user);
+    await this.prisma.institute.delete({ where: { id } })
+    return { message: 'Institute successfully deleted' }
   }
 }

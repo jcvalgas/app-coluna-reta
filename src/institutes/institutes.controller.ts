@@ -13,6 +13,8 @@ import { CreateInstituteDto } from './dto/create-institute.dto';
 import { UpdateInstituteDto } from './dto/update-institute.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { LoggedUser } from 'src/utils/logged-user.decorator';
+import { User } from 'src/users/entities/user.entity';
 
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
@@ -25,8 +27,8 @@ export class InstitutesController {
   @ApiOperation({
     summary: 'Create a institute',
   })
-  create(@Body() createInstituteDto: CreateInstituteDto) {
-    return this.institutesService.create(createInstituteDto);
+  create(@Body() createInstituteDto: CreateInstituteDto, @LoggedUser() user: User) {
+    return this.institutesService.create(createInstituteDto, user);
   }
 
   @Get()
@@ -58,15 +60,16 @@ export class InstitutesController {
   update(
     @Param('id') id: string,
     @Body() updateInstituteDto: UpdateInstituteDto,
+    @LoggedUser() user: User
   ) {
-    return this.institutesService.update(id, updateInstituteDto);
+    return this.institutesService.update(id, updateInstituteDto, user);
   }
 
   @Delete(':id')
   @ApiOperation({
     summary: 'Delete institutes by id or email',
   })
-  remove(@Param('id') id: string) {
-    return this.institutesService.remove(id);
+  remove(@Param('id') id: string, @LoggedUser() user: User) {
+    return this.institutesService.remove(id, user);
   }
 }

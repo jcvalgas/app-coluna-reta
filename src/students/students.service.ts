@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { handleError } from 'src/utils/handle-error.util';
 import { domainToASCII } from 'url';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
@@ -28,7 +29,8 @@ export class StudentsService {
         },
       },
     };
-    return await this.prisma.student.create({
+    return await this.prisma.student
+    .create({
       data,
       select: {
         id: true,
@@ -43,7 +45,8 @@ export class StudentsService {
           },
         },
       },
-    });
+    })
+    .catch(handleError);
   }
 
   async findAll() {
@@ -100,7 +103,8 @@ export class StudentsService {
         },
       },
     };
-    return await this.prisma.student.update({
+    return await this.prisma.student
+    .update({
       where: { id },
       data,
       select: {
@@ -115,11 +119,12 @@ export class StudentsService {
           },
         },
       },
-    });
+    })
+    .catch(handleError);
   }
 
   async remove(id: string) {
-    await this.prisma.student.delete({ where: { id } });
-    return { message: 'Student successfully deleted' };
+    await this.prisma.student.delete({ where: { id } })
+    return { message: 'Student successfully deleted' }
   }
 }

@@ -4,6 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
+import { handleError } from 'src/utils/handle-error.util';
 
 @Injectable()
 export class UsersService {
@@ -22,10 +23,12 @@ export class UsersService {
       ...dto,
       password: await bcrypt.hash(dto.password, 10),
     };
-    return await this.prisma.user.create({
+    return await this.prisma.user
+    .create({
       data,
       select: this.userSelect,
-    });
+    })
+    .catch(handleError);
   }
 
   async findAll() {
@@ -41,22 +44,19 @@ export class UsersService {
     });
   }
 
-
   async update(id: string, dto: UpdateUserDto) {
     const data: Partial<User> = { ...dto };
-    return await this.prisma.user.update({
+    return await this.prisma.user
+    .update({
       where: { id },
       data,
       select: this.userSelect,
-    });
+    })
+    .catch(handleError);
   }
 
   async remove(id: string) {
-    await this.prisma.user.delete({
-      where: {
-        id,
-      },
-    });
-    return { message: 'User successfully deleted' };
+    await this.prisma.user.delete({ where: { id } })
+    return { message: 'User successfully deleted' }
   }
 }
