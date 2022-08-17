@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Query,
+} from '@nestjs/common';
 import { StudentsService } from './students.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
@@ -8,7 +18,6 @@ import { AuthGuard } from '@nestjs/passport';
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
 @ApiTags('student')
-
 @Controller('students')
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
@@ -52,4 +61,10 @@ export class StudentsController {
   remove(@Param('id') id: string) {
     return this.studentsService.remove(id);
   }
+
+  @Get('/Search')
+  findStudents(@Query('name') name: string){
+    return this.studentsService.findMany(name)
+  }
+  
 }

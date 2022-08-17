@@ -7,8 +7,8 @@ export class Student {
   phoneStudent: string;
   photo: string;
   description: string;
-  userId: string;
-  instituteId: string;
+  user?: User;
+  institute?: Institute;
 
   createdAt?: Date;
   updatedAt?: Date;

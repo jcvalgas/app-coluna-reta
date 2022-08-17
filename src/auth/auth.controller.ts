@@ -4,7 +4,7 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { User } from 'src/users/entities/user.entity';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
-import { LoggedUser } from './logged-user.decorator';
+import { LoggedUser } from '../utils/logged-user.decorator';
 
 @Controller('auth')
 @ApiTags('auth')
@@ -34,6 +34,6 @@ export class AuthController {
   })
   @ApiBearerAuth()
   profile(@LoggedUser() user: User) {
-    return user;
+    return { user };
   }
 }
