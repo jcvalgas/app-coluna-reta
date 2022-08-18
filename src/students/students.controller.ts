@@ -38,7 +38,7 @@ export class StudentsController {
     return this.studentsService.findAll();
   }
 
-  @Get(':id')
+  @Get('find:id')
   @ApiOperation({
     summary: 'View students by id',
   })
