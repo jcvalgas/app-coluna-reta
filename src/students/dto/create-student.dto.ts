@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from '@prisma/client';
-import { IsDate, IsNotEmpty, IsPhoneNumber, IsString, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsPhoneNumber, IsString, IsUUID } from 'class-validator';
 
 export class CreateStudentDto {
 
@@ -17,13 +16,12 @@ export class CreateStudentDto {
     example: '22/12/2022',
   })
   @IsString()
-  @IsDate()
   @IsNotEmpty()
   birthDate: string;
 
   @ApiProperty({
     description: 'Student`s phoneNumber',
-    example: '11 2222-2222',
+    example: '+55 9895652642',
   })
   @IsString()
   @IsPhoneNumber()
@@ -48,8 +46,8 @@ export class CreateStudentDto {
   description: string;
 
   @ApiProperty({
-    description: 'Username responsible for the registration',
-    example: 'Bruna',
+    description: 'User`s id responsible for registration',
+    example: '',
   })
   @IsString()
   @IsNotEmpty()
@@ -57,8 +55,8 @@ export class CreateStudentDto {
   userId: string;
 
   @ApiProperty({
-    description: 'Institute`s student',
-    example: 'Primary school',
+    description: 'Institute`s id for registration',
+    example: '',
   })
   @IsString()
   @IsNotEmpty()

@@ -39,6 +39,7 @@ export class StudentsService {
         data,
         select: {
           id: true,
+          name: true,
           user: {
             select: {
               name: true,
@@ -58,6 +59,7 @@ export class StudentsService {
     return await this.prisma.student.findMany({
       select: {
         id: true,
+        name: true,
         user: {
           select: {
             name: true,

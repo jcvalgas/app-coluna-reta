@@ -20,19 +20,10 @@ export class CreateInstituteDto {
 
   @ApiProperty({
     description: 'Institute`s phoneNumber',
-    example: '11 9999-2222',
+    example: '+55 3199992222',
   })
   @IsString()
   @IsPhoneNumber()
   @IsNotEmpty()
   phoneNumber: string;
-
-  @ApiProperty({
-    description: 'Institute`s phoneNumber',
-    example: '11 9999-2222',
-  })
-  @IsString()
-  @IsPhoneNumber()
-  @IsNotEmpty()
-  users?: string[];
 }

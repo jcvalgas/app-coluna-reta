@@ -6,7 +6,6 @@ export class Institute {
   name: string;
   address: string;
   phoneNumber: string;
-
   createdAt?: Date;
   updatedAt?: Date;
 }

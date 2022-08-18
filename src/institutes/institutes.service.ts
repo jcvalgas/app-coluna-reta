@@ -10,6 +10,14 @@ import { Institute } from './entities/institute.entity';
 
 @Injectable()
 export class InstitutesService {
+  private selectInstitute = {
+    id: true,
+    name: true,
+    address: true,
+    students: true,
+    phoneNumber: true,
+  }
+
   constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: CreateInstituteDto, user: User) {
@@ -25,7 +33,7 @@ export class InstitutesService {
   }
 
   async findOne(id: string) {
-    return await this.prisma.institute.findUnique({ where: { id } });
+    return await this.prisma.institute.findUnique({ where: { id }, select: this.selectInstitute });
   }
 
   async update(id: string, dto: UpdateInstituteDto, user: User) {
