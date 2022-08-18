@@ -38,7 +38,13 @@ export class StudentsController {
     return this.studentsService.findAll();
   }
 
-  @Get(':id')
+  @Get('/paginate')
+  getStudents(@Query('page') page: number) {
+    return this.studentsService.findManyByPage(+page)
+  }
+  
+
+  @Get('/find/:id')
   @ApiOperation({
     summary: 'View students by id',
   })

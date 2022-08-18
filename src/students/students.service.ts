@@ -9,11 +9,7 @@ import { Student } from './entities/student.entity';
 
 @Injectable()
 export class StudentsService {
-  async findMany(name: string) {
-    return await this.prisma.student.findMany({
-      where: { name },
-    });
-  }
+  
   constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: CreateStudentDto) {
@@ -71,6 +67,23 @@ export class StudentsService {
           },
         },
       },
+    });
+  }
+
+  async findManyByPage(page: number) {
+    return await this.prisma.student.findMany({
+      skip: page * 3,
+      take: 3,
+      orderBy: {
+        name: 'asc'
+      }
+    })
+  }
+
+  
+  async findMany(name: string) {
+    return await this.prisma.student.findMany({
+      where: { name: {startsWith: name } },
     });
   }
 
