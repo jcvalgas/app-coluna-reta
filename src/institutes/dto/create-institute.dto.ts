@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsPhoneNumber, IsString, Matches } from 'class-validator';
 
 export class CreateInstituteDto {
   @ApiProperty({
@@ -23,16 +23,19 @@ export class CreateInstituteDto {
     example: '11 9999-2222',
   })
   @IsString()
-  @IsPhoneNumber()
+  // @IsPhoneNumber()
   @IsNotEmpty()
+  // @Matches(/^\d{3}\x2E\d{3}\x2E\d{3}\x2D\d{2}$/, {
+  //   message: 'the CPF document must contains this mask 123.123.123-12',
+  // })
   phoneNumber: string;
 
-  @ApiProperty({
-    description: 'Institute`s phoneNumber',
-    example: '11 9999-2222',
-  })
-  @IsString()
-  @IsPhoneNumber()
-  @IsNotEmpty()
-  users?: string[];
+  // @ApiProperty({
+  //   description: 'Institute`s phoneNumber',
+  //   example: '11 9999-2222',
+  // })
+  // @IsString()
+  // @IsPhoneNumber()
+  // @IsNotEmpty()
+  // users?: string[];
 }
