@@ -8,6 +8,11 @@ import { UpdateStudentDto } from './dto/update-student.dto';
 
 @Injectable()
 export class StudentsService {
+  async findMany(name: string) {
+    return await this.prisma.student.findMany({
+      where: { name },
+    });
+  }
   constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: CreateStudentDto) {
@@ -29,23 +34,23 @@ export class StudentsService {
       },
     };
     return await this.prisma.student
-    .create({
-      data,
-      select: {
-        id: true,
-        user: {
-          select: {
-            name: true,
+      .create({
+        data,
+        select: {
+          id: true,
+          user: {
+            select: {
+              name: true,
+            },
+          },
+          institute: {
+            select: {
+              name: true,
+            },
           },
         },
-        institute: {
-          select: {
-            name: true,
-          },
-        },
-      },
-    })
-    .catch(handleError);
+      })
+      .catch(handleError);
   }
 
   async findManyByPage(page: number) {
@@ -108,23 +113,23 @@ export class StudentsService {
       },
     };
     return await this.prisma.student
-    .update({
-      where: { id },
-      data,
-      select: {
-        user: {
-          select: {
-            name: true,
+      .update({
+        where: { id },
+        data,
+        select: {
+          user: {
+            select: {
+              name: true,
+            },
+          },
+          institute: {
+            select: {
+              name: true,
+            },
           },
         },
-        institute: {
-          select: {
-            name: true,
-          },
-        },
-      },
-    })
-    .catch(handleError);
+      })
+      .catch(handleError);
   }
 
   async remove(id: string) {
