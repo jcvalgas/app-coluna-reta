@@ -73,21 +73,10 @@ export class StudentsService {
       },
     });
   }
-
-  async findManyByPage(page: number) {
-    return await this.prisma.student.findMany({
-      skip: page * 3,
-      take: 3,
-      orderBy: {
-        name: 'asc'
-      }
-    })
-  }
-
   
-  async findMany(name: string) {
+  async findMany(name: string, instituteId) {
     return await this.prisma.student.findMany({
-      where: { name: {startsWith: name } },
+      where: { name: {startsWith: name }, instituteId},
     });
   }
 

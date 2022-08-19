@@ -37,11 +37,6 @@ export class StudentsController {
   getStudents(@Query('page') page: number){
     return this.studentsService.findManyByPage(+page);
   }
-
-  @Get('/paginate')
-  getStudents(@Query('page') page: number) {
-    return this.studentsService.findManyByPage(+page)
-  }
   
   @Get('find:id')
   @ApiOperation({
@@ -67,9 +62,8 @@ export class StudentsController {
     return this.studentsService.remove(id);
   }
 
-  @Get('/Search')
-  findStudents(@Query('name') name: string){
-    return this.studentsService.findMany(name)
-  }
-  
+  @Get('/search')
+  findStudents(@Query('name') name: string, @Query('instituteId') instituteId: string) {
+    return this.studentsService.findMany(name, instituteId)
+  }  
 }
