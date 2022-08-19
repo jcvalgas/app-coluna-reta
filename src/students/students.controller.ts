@@ -34,8 +34,8 @@ export class StudentsController {
   @ApiOperation({
     summary: 'View all students',
   })
-  findAll() {
-    return this.studentsService.findAll();
+  getStudents(@Query('page') page: number){
+    return this.studentsService.findManyByPage(+page);
   }
 
   @Get('/paginate')

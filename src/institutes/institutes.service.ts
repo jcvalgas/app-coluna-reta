@@ -22,10 +22,15 @@ export class InstitutesService {
 
   async create(dto: CreateInstituteDto, user: User) {
     role(user);
-    const data: Institute = { ...dto };
-    return await this.prisma.institute
-    .create({ data })
-    .catch(handleError);
+    const data: Prisma.InstituteCreateInput = {
+      ...dto,
+      users: {
+        connect: dto.users.map((usersId) => ({
+          id: usersId,
+        })),
+      },
+    };
+    return await this.prisma.institute.create({ data }).catch(handleError);
   }
 
   async findAll() {
@@ -38,18 +43,27 @@ export class InstitutesService {
 
   async update(id: string, dto: UpdateInstituteDto, user: User) {
     role(user);
-    const data: Partial<Institute> = { ...dto };
+    const data: Prisma.InstituteUpdateInput = {
+      ...dto,
+      users: {
+        connect: dto.users.map((usersId) => ({
+          id: usersId,
+        })),
+      },
+    };
     return await this.prisma.institute
-    .update({
-      where: { id },
-      data
-    })
-    .catch(handleError);
+      .update({
+        where: { id },
+        data,
+      })
+      .catch(handleError);
   }
 
   async remove(id: string, user: User) {
     role(user);
-    await this.prisma.institute.delete({ where: { id } })
-    return { message: 'Institute successfully deleted' }
+    await this.prisma.institute
+    .delete({ where: { id } })
+    .catch(handleError);
+    return { message: 'Institute successfully deleted' };
   }
 }

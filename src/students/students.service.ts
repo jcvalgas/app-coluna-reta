@@ -5,7 +5,6 @@ import { handleError } from 'src/utils/handle-error.util';
 import { domainToASCII } from 'url';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
-import { Student } from './entities/student.entity';
 
 @Injectable()
 export class StudentsService {
@@ -51,8 +50,13 @@ export class StudentsService {
       .catch(handleError);
   }
 
-  async findAll() {
+  async findManyByPage(page: number) {
     return await this.prisma.student.findMany({
+      skip: page * 3,
+      take: 3,
+      orderBy: {
+        name: 'asc'
+      },
       select: {
         id: true,
         name: true,
@@ -144,7 +148,9 @@ export class StudentsService {
   }
 
   async remove(id: string) {
-    await this.prisma.student.delete({ where: { id } });
-    return { message: 'Student successfully deleted' };
+    await this.prisma.student
+    .delete({ where: { id } })
+    .catch(handleError);  
+    return { message: 'Student successfully deleted' }
   }
 }
