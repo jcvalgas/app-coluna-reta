@@ -1,9 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { 
+  Controller, 
+  Get, 
+  Post, 
+  Body, 
+  Patch, 
+  Param, 
+  Delete, 
+  UseGuards, 
+  Query
+} from '@nestjs/common';
 import { StudentsService } from './students.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
+import { Observable } from 'rxjs';
+import { Student } from './entities/student.entity';
 
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
@@ -25,8 +37,8 @@ export class StudentsController {
   @ApiOperation({
     summary: 'View all students',
   })
-  findAll() {
-    return this.studentsService.findAll();
+  getStudents(@Query('page') page: number){
+    return this.studentsService.findManyByPage(+page);
   }
 
   @Get(':id')

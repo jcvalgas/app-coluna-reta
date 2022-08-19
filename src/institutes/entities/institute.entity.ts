@@ -6,6 +6,7 @@ export class Institute {
   name: string;
   address: string;
   phoneNumber: string;
+  users?: User;
 
   createdAt?: Date;
   updatedAt?: Date;

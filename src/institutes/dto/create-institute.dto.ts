@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsPhoneNumber, IsString, IsUUID } from 'class-validator';
 
 export class CreateInstituteDto {
   @ApiProperty({
@@ -27,12 +27,6 @@ export class CreateInstituteDto {
   @IsNotEmpty()
   phoneNumber: string;
 
-  @ApiProperty({
-    description: 'Institute`s phoneNumber',
-    example: '11 9999-2222',
-  })
-  @IsString()
-  @IsPhoneNumber()
-  @IsNotEmpty()
+  @IsUUID( 'all', { each: true } )
   users?: string[];
 }
