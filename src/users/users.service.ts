@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -6,7 +10,7 @@ import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { handleError } from 'src/utils/handle-error.util';
 import { changePassDto } from './dto/change-pass.dto';
-import { Institute, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { role } from 'src/utils/handle-admin.util';
 
 @Injectable()
@@ -21,7 +25,7 @@ export class UsersService {
 
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(dto: CreateUserDto,  user: User) {
+  async create(dto: CreateUserDto, user: User) {
     role(user);
     const data: Prisma.UserCreateInput = {
       ...dto,
@@ -53,7 +57,7 @@ export class UsersService {
     });
   }
 
-  async update(id: string, dto: UpdateUserDto,  user: User) {
+  async update(id: string, dto: UpdateUserDto, user: User) {
     role(user);
     const data: Prisma.UserUpdateInput = {
       ...dto,
@@ -72,11 +76,9 @@ export class UsersService {
       .catch(handleError);
   }
 
-  async remove(id: string,  user: User) {
+  async remove(id: string, user: User) {
     role(user);
-    await this.prisma.user
-    .delete({ where: { id } })
-    .catch(handleError);
+    await this.prisma.user.delete({ where: { id } }).catch(handleError);
     return { message: 'User successfully deleted' };
   }
 
@@ -102,11 +104,11 @@ export class UsersService {
       throw new BadRequestException('Passwords are not the same');
     }
 
-    userDB.password = await  bcrypt.hash(changePassDto.password, 10);
+    userDB.password = await bcrypt.hash(changePassDto.password, 10);
     await this.prisma.user.update({
       where: { id: user.id },
       data: userDB,
-    })
+    });
 
     return { message: 'Password changed successfully' };
   }

@@ -30,12 +30,14 @@ export class UsersController {
    * @returns Objeto de status da aplicação
    */
 
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @Post()
   @ApiOperation({
     summary: 'Create a user',
   })
-  create(@Body() createUserDto: CreateUserDto,  @LoggedUser() user: User) {
-    return this.usersService.create(createUserDto, user);
+  create(@Body() dto: CreateUserDto,  @LoggedUser() user: User) {
+    return this.usersService.create(dto, user);
   }
 
   @UseGuards(AuthGuard())
@@ -66,10 +68,10 @@ export class UsersController {
   })
   update(
     @Param('id') id: string,
-    @Body() updateUserDto: UpdateUserDto,
+    @Body() dto: UpdateUserDto,
     @LoggedUser() user: User
   ) {
-    return this.usersService.update(id, updateUserDto, user);
+    return this.usersService.update(id, dto, user);
   }
 
   @UseGuards(AuthGuard())
@@ -81,6 +83,7 @@ export class UsersController {
   remove(@Param('id') id: string, @LoggedUser() user: User) {
     return this.usersService.remove(id, user);
   }
+  
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @ApiOperation({

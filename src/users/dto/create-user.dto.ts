@@ -35,6 +35,10 @@ export class CreateUserDto {
   @IsBoolean()
   role?: boolean;
 
+  @ApiProperty({
+    description: 'User-related institutes ID',
+    example: '8a4fd390-832d-4f4d-bb21-6face2cec010',
+  })
   @IsUUID( 'all', { each: true } )
   institutes?: string[];
 }

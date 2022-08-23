@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from 'src/users/entities/user.entity';
 import { role } from 'src/utils/handle-admin.util';
 import { handleError } from 'src/utils/handle-error.util';
 import { CreateInstituteDto } from './dto/create-institute.dto';
 import { UpdateInstituteDto } from './dto/update-institute.dto';
+import { Institute } from './entities/institute.entity';
 
 @Injectable()
 export class InstitutesService {
@@ -13,15 +13,10 @@ export class InstitutesService {
 
   async create(dto: CreateInstituteDto, user: User) {
     role(user);
-    const data: Prisma.InstituteCreateInput = {
-      ...dto,
-      users: {
-        connect: dto.users.map((usersId) => ({
-          id: usersId,
-        })),
-      },
-    };
-    return await this.prisma.institute.create({ data }).catch(handleError);
+    const data: Institute = { ...dto };
+    return await this.prisma.institute
+    .create({ data })
+    .catch(handleError);
   }
 
   async findAll() {
@@ -34,14 +29,7 @@ export class InstitutesService {
 
   async update(id: string, dto: UpdateInstituteDto, user: User) {
     role(user);
-    const data: Prisma.InstituteUpdateInput = {
-      ...dto,
-      users: {
-        connect: dto.users.map((usersId) => ({
-          id: usersId,
-        })),
-      },
-    };
+    const data: Partial<Institute> = { ...dto };
     return await this.prisma.institute
       .update({
         where: { id },
