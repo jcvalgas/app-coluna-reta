@@ -34,8 +34,8 @@ export class UsersController {
   @ApiOperation({
     summary: 'Create a user',
   })
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  create(@Body() createUserDto: CreateUserDto,  @LoggedUser() user: User) {
+    return this.usersService.create(createUserDto, user);
   }
 
   @UseGuards(AuthGuard())

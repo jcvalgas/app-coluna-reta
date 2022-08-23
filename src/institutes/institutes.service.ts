@@ -6,7 +6,6 @@ import { role } from 'src/utils/handle-admin.util';
 import { handleError } from 'src/utils/handle-error.util';
 import { CreateInstituteDto } from './dto/create-institute.dto';
 import { UpdateInstituteDto } from './dto/update-institute.dto';
-import { Institute } from './entities/institute.entity';
 
 @Injectable()
 export class InstitutesService {

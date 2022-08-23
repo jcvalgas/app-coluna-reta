@@ -6,6 +6,8 @@ import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { handleError } from 'src/utils/handle-error.util';
 import { changePassDto } from './dto/change-pass.dto';
+import { Institute, Prisma } from '@prisma/client';
+import { role } from 'src/utils/handle-admin.util';
 
 @Injectable()
 export class UsersService {
@@ -19,9 +21,15 @@ export class UsersService {
 
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(dto: CreateUserDto) {
-    const data: User = {
+  async create(dto: CreateUserDto,  user: User) {
+    role(user);
+    const data: Prisma.UserCreateInput = {
       ...dto,
+      institutes: {
+        connect: dto.institutes.map((instituteId) => ({
+          id: instituteId,
+        })),
+      },
       password: await bcrypt.hash(dto.password, 10),
     };
     return await this.prisma.user
@@ -46,7 +54,15 @@ export class UsersService {
   }
 
   async update(id: string, dto: UpdateUserDto,  user: User) {
-    const data: Partial<User> = { ...dto };
+    role(user);
+    const data: Prisma.UserUpdateInput = {
+      ...dto,
+      institutes: {
+        connect: dto.institutes.map((instituteId) => ({
+          id: instituteId,
+        })),
+      },
+    };
     return await this.prisma.user
       .update({
         where: { id },
@@ -57,6 +73,7 @@ export class UsersService {
   }
 
   async remove(id: string,  user: User) {
+    role(user);
     await this.prisma.user
     .delete({ where: { id } })
     .catch(handleError);
