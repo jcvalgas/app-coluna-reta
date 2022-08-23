@@ -21,12 +21,13 @@ export class UsersService {
     email: true,
     password: false,
     role: true,
+    institutes: true,
   };
 
   constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: CreateUserDto, user: User) {
-    role(user);
+    
     const data: Prisma.UserCreateInput = {
       ...dto,
       institutes: {
@@ -50,27 +51,25 @@ export class UsersService {
 
   async findOne(id: string) {
     return await this.prisma.user.findUnique({
-      where: {
-        id,
-      },
+      where: { id },
       select: this.userSelect,
     });
   }
 
   async update(id: string, dto: UpdateUserDto, user: User) {
     role(user);
-    const data: Prisma.UserUpdateInput = {
-      ...dto,
-      institutes: {
-        connect: dto.institutes.map((instituteId) => ({
-          id: instituteId,
-        })),
-      },
-    };
+
     return await this.prisma.user
       .update({
         where: { id },
-        data,
+        data: {
+            ...dto,
+            institutes: {
+              connect: dto.institutes.map((instituteId) => ({
+                id: instituteId,
+              })),
+            },
+          },
         select: this.userSelect,
       })
       .catch(handleError);

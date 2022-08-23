@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
-import { domainToASCII } from 'url';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 
@@ -20,12 +19,12 @@ export class StudentsService {
       ...dto,
       user: {
         connect: {
-          id: dto.userId,
+          id: dto.user,
         },
       },
       institute: {
         connect: {
-          id: dto.instituteId,
+          id: dto.institute,
         },
       },
     };
@@ -95,12 +94,12 @@ export class StudentsService {
       ...dto,
       user: {
         connect: {
-          id: dto.userId,
+          id: dto.user,
         },
       },
       institute: {
         connect: {
-          id: dto.instituteId,
+          id: dto.institute,
         },
       },
     };
