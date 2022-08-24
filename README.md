@@ -22,17 +22,61 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+# APP - COLUNA RETA - Projeto da 87labs - Bootcamp da BlueEdtech - Equipe 03
 
-## Installation
+Nossa equipe desenvolveu o projeto COLUNA RETA que consiste em criar uma aplicação web desenvolvida em NestJS e React para aplicativo ANDROID, cujo desenvolvimento será feito pela 87labs.
+O aplicativo tem como objetivo criar um banco de dados virtual que irá conter dados de alunos cadastrados por colaboradores que visitam as escolas. A coleta de informações visa auxiliar colaboradores internos a indicarem tratamento adequado para as pessoas com enfermidades na coluna e encaminhar os alunos para profissionais clínicos parceiros.
+A aplicação web terá um BackOffice, onde administradores poderão acessar as informações colhidas em campo. Também será possível filtrar os cadastros por instituição, data de inclusão e colaborador de campo.
+
+
+É obrigatório estar previamente instalado:
+
+> - **Node** com versão superior ou igual que 16.15.0 - [Node Download](https://nodejs.org/pt-br/download/)
+> - **NPM** com versão superior ou igual que 8.0.0 - [Npm Download](https://www.npmjs.com/package/download)
+> - **Visual Studio Code** com versão superior ou igual que 1.67.2 - [Visual Studio Code Download](https://code.visualstudio.com/download)
+> - **Thunder Client** com versão superior ou igual que 11.14.00 - [Thunder Client Download](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client)
+> - **PostgreSQL** com versão superior ou igual que 1.67.2 - [PostgreSQL Downloads](https://www.postgresql.org/download/)
+
+## Instalação
+
+Link da branch do projeto no github
+
+```bash
+https://github.com/jcvalgas/app-coluna-reta-server.git
+```
+
+> Acesse a pasta do projeto seu terminal:
+
+```bash
+ 	cd [Nome da pasta do seu projeto]
+```
+
+> Instalação - digite o seguinte comando:
 
 ```bash
 $ npm install
 ```
 
+<<<<<<< HEAD
+
+## Clone
+
+```bash
+$ git clone https://github.com/jcvalgas/app-coluna-reta-server.git
+```
+
 ## Running the app
+
+=======
+
+> Instalação -do NestJS CLI:
+
+```bash
+$ npm i -g @nestjs/cli
+```
+
+## Execução
 
 ```bash
 # development
@@ -45,29 +89,35 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+> A aplicação estará disponível para visualização em seu navegador, caso isso não aconteça automaticamente, abra o navegador no seguinte endereço: _localhost:3000_
+
+## Swagger
+
+Todas as rotas estão no swagger
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+https://app-coluna-reta-api.herokuapp.com/api
 ```
 
-## Support
+## PrismaStudio
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+http://localhost:5555/
+```
 
-## Stay in touch
+## Autores (em ordem alfabética) - Equipe 03
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-## License
+- BackEnd
+> - **Astolfo Valentim** - [Github](https://github.com/astolfovalentim)
+> - **Bruna Bomfim** - [Github](https://github.com/brunabbomfim)
 
-Nest is [MIT licensed](LICENSE).
+- FrontEnd
+> - **J.C. Valgas** - [Github](https://github.com/jcvalgas)
+> - **Paulo Gabriel Lemos** - [Github](https://github.com/astolfovalentim)
+
+
+
+## Licença
+
+> MIT License (MIT)
