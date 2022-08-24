@@ -21,7 +21,11 @@ export class UsersService {
     email: true,
     password: false,
     role: true,
-    institutes: true,
+    institutes: {
+      select: {
+        name: true,
+      },
+    },
   };
 
   constructor(private readonly prisma: PrismaService) {}
@@ -79,36 +83,5 @@ export class UsersService {
     role(user);
     await this.prisma.user.delete({ where: { id } }).catch(handleError);
     return { message: 'User successfully deleted' };
-  }
-
-  async changePass(changePassDto: changePassDto, user: User) {
-    const userDB = await this.prisma.user.findUnique({
-      where: { id: user.id },
-    });
-
-    if (!userDB) {
-      throw new UnauthorizedException('Invalid password');
-    }
-
-    const isHashValid = await bcrypt.compare(
-      changePassDto.oldPassword,
-      userDB.password,
-    );
-
-    if (!isHashValid) {
-      throw new UnauthorizedException('Invalid password');
-    }
-
-    if (changePassDto.password != changePassDto.confirmPassword) {
-      throw new BadRequestException('Passwords are not the same');
-    }
-
-    userDB.password = await bcrypt.hash(changePassDto.password, 10);
-    await this.prisma.user.update({
-      where: { id: user.id },
-      data: userDB,
-    });
-
-    return { message: 'Password changed successfully' };
   }
 }

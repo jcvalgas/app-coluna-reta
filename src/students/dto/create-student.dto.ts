@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  IsDateString,
   IsNotEmpty,
   IsPhoneNumber,
   IsString,
@@ -20,6 +19,7 @@ export class CreateStudentDto {
     description: 'Student`s birth date',
     example: '22/12/2022',
   })
+  @IsString()
   @IsNotEmpty()
   birthDate: string;
 

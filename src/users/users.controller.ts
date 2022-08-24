@@ -83,14 +83,4 @@ export class UsersController {
   remove(@Param('id') id: string, @LoggedUser() user: User) {
     return this.usersService.remove(id, user);
   }
-  
-  @UseGuards(AuthGuard())
-  @ApiBearerAuth()
-  @ApiOperation({
-    summary: 'Change user password',
-  })
-  @Put()
-  changePass(@Body() changePassDto: changePassDto, @LoggedUser() user: User){
-    return this.usersService.changePass(changePassDto, user);
-  }
 }

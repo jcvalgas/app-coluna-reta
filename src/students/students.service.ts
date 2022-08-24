@@ -33,6 +33,7 @@ export class StudentsService {
         data,
         select: {
           id: true,
+          name: true,
           user: {
             select: {
               name: true,

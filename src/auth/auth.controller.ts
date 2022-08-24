@@ -1,10 +1,11 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Put, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { User } from 'src/users/entities/user.entity';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { LoggedUser } from '../utils/logged-user.decorator';
+import { changePassDto } from 'src/users/dto/change-pass.dto';
 
 @Controller('auth')
 @ApiTags('auth')
@@ -35,5 +36,15 @@ export class AuthController {
   @ApiBearerAuth()
   profile(@LoggedUser() user: User) {
     return { user };
+  }
+
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Change user password',
+  })
+  @Put()
+  changePass(@Body() changePassDto: changePassDto, @LoggedUser() user: User){
+    return this.authService.changePass(changePassDto, user);
   }
 }
