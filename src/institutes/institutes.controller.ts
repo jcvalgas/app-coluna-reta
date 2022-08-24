@@ -27,8 +27,8 @@ export class InstitutesController {
   @ApiOperation({
     summary: 'Create a institute',
   })
-  create(@Body() createInstituteDto: CreateInstituteDto, @LoggedUser() user: User) {
-    return this.institutesService.create(createInstituteDto, user);
+  create(@Body() dto: CreateInstituteDto, @LoggedUser() user: User) {
+    return this.institutesService.create(dto, user);
   }
 
   @Get()
@@ -59,10 +59,10 @@ export class InstitutesController {
   })
   update(
     @Param('id') id: string,
-    @Body() updateInstituteDto: UpdateInstituteDto,
+    @Body() dto: UpdateInstituteDto,
     @LoggedUser() user: User
   ) {
-    return this.institutesService.update(id, updateInstituteDto, user);
+    return this.institutesService.update(id, dto, user);
   }
 
   @Delete(':id')

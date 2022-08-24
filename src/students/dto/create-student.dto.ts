@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import {
-  IsDate,
+  IsDateString,
   IsNotEmpty,
   IsPhoneNumber,
   IsString,
@@ -22,7 +22,9 @@ export class CreateStudentDto {
     description: 'Student`s birth date',
     example: '22/12/2022',
   })
+
   @IsString()
+
   @IsNotEmpty()
   birthDate: string;
 
@@ -53,20 +55,22 @@ export class CreateStudentDto {
   description: string;
 
   @ApiProperty({
-    description: 'User`s id responsible for registration',
-    example: '',
+
+    description: 'ID of user responsible for the registration',
+    example: 'c07437d1-f340-4050-a4d5-adf379830000',
+
   })
-  @IsString()
   @IsNotEmpty()
   @IsUUID()
-  userId: string;
+  user: string;
 
   @ApiProperty({
-    description: 'Institute`s id for registration',
-    example: '',
+
+    description: 'Institute`s student',
+    example: '8a4fd390-832d-4f4d-bb21-6face2cec010',
+
   })
-  @IsString()
   @IsNotEmpty()
   @IsUUID()
-  instituteId: string;
+  institute: string;
 }

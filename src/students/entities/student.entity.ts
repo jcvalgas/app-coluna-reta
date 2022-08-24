@@ -1,4 +1,5 @@
-import { Institute, User } from "@prisma/client";
+import { Institute } from "src/institutes/entities/institute.entity";
+import { User } from "src/users/entities/user.entity";
 
 export class Student {
   id?: string;

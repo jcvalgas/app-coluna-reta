@@ -20,14 +20,18 @@ export class CreateInstituteDto {
 
   @ApiProperty({
     description: 'Institute`s phoneNumber',
-    example: '+55 3199992222',
+
+    example: '+55 1199992222',
+
   })
   @IsString()
   @IsPhoneNumber()
   @IsNotEmpty()
   phoneNumber: string;
 
+
   @IsUUID( 'all', { each: true } )
   users?: string[];
+
 
 }

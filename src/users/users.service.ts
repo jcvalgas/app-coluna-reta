@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -6,6 +10,8 @@ import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { handleError } from 'src/utils/handle-error.util';
 import { changePassDto } from './dto/change-pass.dto';
+import { Prisma } from '@prisma/client';
+import { role } from 'src/utils/handle-admin.util';
 
 @Injectable()
 export class UsersService {
@@ -15,13 +21,20 @@ export class UsersService {
     email: true,
     password: false,
     role: true,
+    institutes: true,
   };
 
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(dto: CreateUserDto) {
-    const data: User = {
+  async create(dto: CreateUserDto, user: User) {
+    
+    const data: Prisma.UserCreateInput = {
       ...dto,
+      institutes: {
+        connect: dto.institutes.map((instituteId) => ({
+          id: instituteId,
+        })),
+      },
       password: await bcrypt.hash(dto.password, 10),
     };
     return await this.prisma.user
@@ -38,28 +51,33 @@ export class UsersService {
 
   async findOne(id: string) {
     return await this.prisma.user.findUnique({
-      where: {
-        id,
-      },
+      where: { id },
       select: this.userSelect,
     });
   }
 
-  async update(id: string, dto: UpdateUserDto,  user: User) {
-    const data: Partial<User> = { ...dto };
+  async update(id: string, dto: UpdateUserDto, user: User) {
+    role(user);
+
     return await this.prisma.user
       .update({
         where: { id },
-        data,
+        data: {
+            ...dto,
+            institutes: {
+              connect: dto.institutes.map((instituteId) => ({
+                id: instituteId,
+              })),
+            },
+          },
         select: this.userSelect,
       })
       .catch(handleError);
   }
 
-  async remove(id: string,  user: User) {
-    await this.prisma.user
-    .delete({ where: { id } })
-    .catch(handleError);
+  async remove(id: string, user: User) {
+    role(user);
+    await this.prisma.user.delete({ where: { id } }).catch(handleError);
     return { message: 'User successfully deleted' };
   }
 
@@ -85,11 +103,11 @@ export class UsersService {
       throw new BadRequestException('Passwords are not the same');
     }
 
-    userDB.password = await  bcrypt.hash(changePassDto.password, 10);
+    userDB.password = await bcrypt.hash(changePassDto.password, 10);
     await this.prisma.user.update({
       where: { id: user.id },
       data: userDB,
-    })
+    });
 
     return { message: 'Password changed successfully' };
   }

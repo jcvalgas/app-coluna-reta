@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
-import { domainToASCII } from 'url';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 
@@ -13,19 +12,15 @@ export class StudentsService {
 
   async create(dto: CreateStudentDto) {
     const data: Prisma.StudentCreateInput = {
-      name: dto.name,
-      birthDate: dto.birthDate,
-      phoneStudent: dto.phoneStudent,
-      photo: dto.photo,
-      description: dto.description,
+      ...dto,
       user: {
         connect: {
-          id: dto.userId,
+          id: dto.user,
         },
       },
       institute: {
         connect: {
-          id: dto.instituteId,
+          id: dto.institute,
         },
       },
     };
@@ -100,19 +95,15 @@ export class StudentsService {
 
   async update(id: string, dto: UpdateStudentDto) {
     const data: Prisma.StudentUpdateInput = {
-      name: dto.name,
-      birthDate: dto.birthDate,
-      phoneStudent: dto.phoneStudent,
-      photo: dto.photo,
-      description: dto.description,
+      ...dto,
       user: {
         connect: {
-          id: dto.userId,
+          id: dto.user,
         },
       },
       institute: {
         connect: {
-          id: dto.instituteId,
+          id: dto.institute,
         },
       },
     };
