@@ -4,11 +4,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const allowedOrigins = process.env.IP_LIST.split (',') || '';
-  const app = await NestFactory.create(AppModule, { 
+  const allowedOrigins = process.env.IP_LIST.split(',') || '';
+  const app = await NestFactory.create(AppModule, {
     cors: {
       origin: allowedOrigins,
-    }
+    },
   });
 
   app.useGlobalPipes(new ValidationPipe());
