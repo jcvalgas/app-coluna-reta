@@ -59,7 +59,7 @@ export class StudentsService {
   async findAll(skip: number) {
     return await this.prisma.student.findMany({  
       skip: skip,
-      take: 3,
+      take: 20,
       orderBy: {
         name: 'asc'
       },
