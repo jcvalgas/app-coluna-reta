@@ -37,8 +37,8 @@ export class StudentsController {
   findAll(@Param('skip') skip: number) {
     return this.studentsService.findAll(+skip);
   }
-
-  @Get(':id')
+  
+  @Get('find:id')
   @ApiOperation({
     summary: 'View students by id',
   })
@@ -62,9 +62,8 @@ export class StudentsController {
     return this.studentsService.remove(id);
   }
 
-  @Get('/Search')
-  findStudents(@Query('name') name: string){
-    return this.studentsService.findMany(name)
-  }
-  
+  @Get('/search')
+  findStudents(@Query('name') name: string, @Query('instituteId') instituteId: string) {
+    return this.studentsService.findMany(name, instituteId)
+  }  
 }

@@ -9,12 +9,6 @@ import { UpdateStudentDto } from './dto/update-student.dto';
 @Injectable()
 export class StudentsService {
 
-  async findMany(name: string) {
-    return await this.prisma.student.findMany({
-      where: { name },
-    });
-  }
-
   constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: CreateStudentDto) {
@@ -78,6 +72,12 @@ export class StudentsService {
           },
         },
       },
+    });
+  }
+  
+  async findMany(name: string, instituteId) {
+    return await this.prisma.student.findMany({
+      where: { name: {startsWith: name }, instituteId},
     });
   }
 
