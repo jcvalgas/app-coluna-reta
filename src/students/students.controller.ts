@@ -30,12 +30,12 @@ export class StudentsController {
     return this.studentsService.create(createStudentDto);
   }
 
-  @Get()
+  @Get(':skip')
   @ApiOperation({
     summary: 'View all students',
   })
-  getStudents(@Query('page') page: number){
-    return this.studentsService.findManyByPage(+page);
+  findAll(@Param('skip') skip: number) {
+    return this.studentsService.findAll(+skip);
   }
 
   @Get(':id')

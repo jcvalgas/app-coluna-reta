@@ -1,15 +1,10 @@
-import {
-  BadRequestException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { handleError } from 'src/utils/handle-error.util';
-import { changePassDto } from './dto/change-pass.dto';
 import { Prisma } from '@prisma/client';
 import { role } from 'src/utils/handle-admin.util';
 
@@ -31,6 +26,7 @@ export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(dto: CreateUserDto, user: User) {
+    role(user);
     
     const data: Prisma.UserCreateInput = {
       ...dto,
@@ -67,13 +63,13 @@ export class UsersService {
       .update({
         where: { id },
         data: {
-            ...dto,
-            institutes: {
-              connect: dto.institutes.map((instituteId) => ({
-                id: instituteId,
-              })),
-            },
+          ...dto,
+          institutes: {
+            connect: dto.institutes.map((instituteId) => ({
+              id: instituteId,
+            })),
           },
+        },
         select: this.userSelect,
       })
       .catch(handleError);

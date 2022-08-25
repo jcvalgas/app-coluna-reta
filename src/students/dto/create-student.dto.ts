@@ -25,7 +25,7 @@ export class CreateStudentDto {
 
   @ApiProperty({
     description: 'Student`s phoneNumber',
-    example: '11 2222-2222',
+    example: '+55 1122223333',
   })
   @IsString()
   @IsPhoneNumber()

@@ -7,7 +7,6 @@ import {
   Param,
   Delete,
   UseGuards,
-  Put,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -16,7 +15,6 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { LoggedUser } from 'src/utils/logged-user.decorator';
 import { User } from './entities/user.entity';
-import { changePassDto } from './dto/change-pass.dto';
 
 @ApiTags('user')
 @Controller('users')
@@ -36,7 +34,7 @@ export class UsersController {
   @ApiOperation({
     summary: 'Create a user',
   })
-  create(@Body() dto: CreateUserDto,  @LoggedUser() user: User) {
+  create(@Body() dto: CreateUserDto, @LoggedUser() user: User) {
     return this.usersService.create(dto, user);
   }
 
@@ -69,7 +67,7 @@ export class UsersController {
   update(
     @Param('id') id: string,
     @Body() dto: UpdateUserDto,
-    @LoggedUser() user: User
+    @LoggedUser() user: User,
   ) {
     return this.usersService.update(id, dto, user);
   }

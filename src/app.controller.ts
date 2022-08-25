@@ -12,12 +12,12 @@ export class AppController {
    * da aplicação da URL de documentação
    * @param req Objeto de Request do Express
    * @returns Objeto de status da aplicação
-  */
+   */
 
   @Get()
   @ApiOperation({
-		summary: "View application status",
-	})  
+    summary: 'View application status',
+  })
   getStatus() {
     return this.appService.getStatus('http://localhost:3000');
   }

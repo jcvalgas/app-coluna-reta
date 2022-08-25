@@ -1,4 +1,13 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Put, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { User } from 'src/users/entities/user.entity';
@@ -12,13 +21,13 @@ import { changePassDto } from 'src/users/dto/change-pass.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-   /**
+  /**
    * Recebe uma requisição GET e retorna um objeto de status
    * da aplicação da URL de documentação
    * @param req Objeto de Request do Express
    * @returns Objeto de status da aplicação
-  */
- 
+   */
+
   @Post()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
@@ -44,7 +53,7 @@ export class AuthController {
     summary: 'Change user password',
   })
   @Put()
-  changePass(@Body() changePassDto: changePassDto, @LoggedUser() user: User){
+  changePass(@Body() changePassDto: changePassDto, @LoggedUser() user: User) {
     return this.authService.changePass(changePassDto, user);
   }
 }
