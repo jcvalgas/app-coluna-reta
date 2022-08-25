@@ -27,8 +27,14 @@ export class InstitutesService {
     .catch(handleError);
   }
 
-  async findAll() {
-    return await this.prisma.institute.findMany();
+  async findAll(skip: number) {
+    return await this.prisma.institute.findMany({
+      skip: skip,
+      take: 20,
+      orderBy: {
+        name: 'asc'
+      }
+    });
   }
 
   async findOne(id: string) {

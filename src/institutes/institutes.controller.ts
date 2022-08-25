@@ -31,12 +31,12 @@ export class InstitutesController {
     return this.institutesService.create(dto, user);
   }
 
-  @Get()
+  @Get(':skip')
   @ApiOperation({
     summary: 'View all institutes',
   })
-  findAll() {
-    return this.institutesService.findAll();
+  findAll(@Param('skip') skip: number) {
+    return this.institutesService.findAll(+skip);
   }
 
  /*@Get('/students')

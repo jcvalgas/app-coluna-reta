@@ -20,6 +20,7 @@ export class CreateStudentDto {
   @ApiProperty({
     description: 'Student`s birth date',
     example: '22/12/2022',
+  })
   @IsString()
   @IsNotEmpty()
   birthDate: string;
