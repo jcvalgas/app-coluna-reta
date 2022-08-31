@@ -1,3 +1,4 @@
+import { Historic } from "src/historic/entities/historic.entity";
 import { Institute } from "src/institutes/entities/institute.entity";
 import { User } from "src/users/entities/user.entity";
 
@@ -10,6 +11,7 @@ export class Student {
   description: string;
   user?: User;
   institute?: Institute;
+  historic?: Historic;
 
   createdAt?: Date;
   updatedAt?: Date;

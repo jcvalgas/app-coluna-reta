@@ -52,10 +52,12 @@ model Student {
   institute   Institute @relation(fields: [instituteId], references: [id])
   instituteId String    @map("institute_id")
 
+  historic   Historic @relation(fields: [historicId], references: [id])
+  historicId String    @map("historic_id")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  historic Historic[]
 
   @@map("student")
 }
@@ -69,11 +71,10 @@ model Historic {
   returnDate   String
   note         String
 
-  student   Student @relation(fields: [studentId], references: [id])
-  studentId String    @map("student_id")
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  students Student[]
+  
   @@map("historic")
 }

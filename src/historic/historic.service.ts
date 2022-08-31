@@ -12,7 +12,7 @@ export class HistoricService {
     return `This action returns all historic`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} historic`;
   }
 

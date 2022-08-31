@@ -6,6 +6,7 @@ import {
   IsString,
   IsUUID
 } from 'class-validator';
+import { Historic } from 'src/historic/entities/historic.entity';
 
 
 export class CreateStudentDto {
@@ -70,4 +71,14 @@ export class CreateStudentDto {
   @IsNotEmpty()
   @IsUUID()
   institute: string;
+
+  @ApiProperty({
+
+    description: 'Historic`s student',
+    example: '8a4fd390-832d-4f4d-bb21-6face2cec010',
+
+  })
+  @IsNotEmpty()
+  @IsUUID()
+  historic: Historic;
 }
