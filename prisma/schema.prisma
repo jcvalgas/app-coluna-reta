@@ -12,7 +12,7 @@ model User {
   name     String
   email    String  @unique
   password String
-  role     Boolean @default(false)
+  role     String 
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -55,5 +55,25 @@ model Student {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  historic Historic[]
+
   @@map("student")
+}
+
+model Historic {
+  id           String @id @default(uuid())
+  data         String
+  photo        String
+  forwarding   String
+  angleCobb    String
+  returnDate   String
+  note         String
+
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId String    @map("student_id")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("historic")
 }

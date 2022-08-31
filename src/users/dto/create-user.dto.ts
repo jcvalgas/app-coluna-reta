@@ -38,9 +38,8 @@ export class CreateUserDto {
     description: 'If user is admin or server',
     example: false,
   })
-  @IsOptional()
-  @IsBoolean()
-  role?: boolean;
+  @IsString()
+  role: string;
 
   @ApiProperty({
     description: 'User-related institutes ID',
