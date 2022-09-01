@@ -1,15 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { HistoricService } from './historic.service';
 import { CreateHistoricDto } from './dto/create-historic.dto';
 import { UpdateHistoricDto } from './dto/update-historic.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+
+@UseGuards(AuthGuard())
+@ApiBearerAuth()
+@ApiTags('historic')
 @Controller('historic')
 export class HistoricController {
   constructor(private readonly historicService: HistoricService) {}
 
   @Post()
-  create(@Body() createHistoricDto: CreateHistoricDto) {
-    return this.historicService.create(createHistoricDto);
+  create(@Body() dto: CreateHistoricDto) {
+    return this.historicService.create(dto);
   }
 
   @Get()
@@ -23,8 +29,8 @@ export class HistoricController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateHistoricDto: UpdateHistoricDto) {
-    return this.historicService.update(id, updateHistoricDto);
+  update(@Param('id') id: string, @Body() dto: UpdateHistoricDto) {
+    return this.historicService.update(id, dto);
   }
 
   @Delete(':id')
