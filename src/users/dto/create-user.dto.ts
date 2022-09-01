@@ -1,17 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsBoolean,
-  IsEmail,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  IsUUID,
-} from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class CreateUserDto {
   @ApiProperty({
     description: 'User`s name',
-    example: 'Bruna Bomfim',
+    example: 'Valgas',
   })
   @IsString()
   @IsNotEmpty()
@@ -19,7 +12,7 @@ export class CreateUserDto {
 
   @ApiProperty({
     description: 'User`s email',
-    example: 'Bruna@gmail.com',
+    example: 'valgas@email.com',
   })
   @IsString()
   @IsEmail()
@@ -28,7 +21,7 @@ export class CreateUserDto {
 
   @ApiProperty({
     description: 'User`s password',
-    example: '123456',
+    example: 'valgas375466',
   })
   @IsString()
   @IsNotEmpty()
