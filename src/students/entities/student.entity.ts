@@ -1,4 +1,3 @@
-import { Historic } from "src/historic/entities/historic.entity";
 import { Institute } from "src/institutes/entities/institute.entity";
 import { User } from "src/users/entities/user.entity";
 

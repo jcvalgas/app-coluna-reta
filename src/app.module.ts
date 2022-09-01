@@ -6,7 +6,6 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { InstitutesModule } from './institutes/institutes.module';
 import { StudentsModule } from './students/students.module';
-import { HistoricModule } from './historic/historic.module';
 
 @Module({
   imports: [
@@ -15,7 +14,6 @@ import { HistoricModule } from './historic/historic.module';
     AuthModule,
     InstitutesModule,
     StudentsModule,
-    HistoricModule,
   ],
   controllers: [AppController],
   providers: [AppService],
