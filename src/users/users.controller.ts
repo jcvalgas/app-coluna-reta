@@ -19,8 +19,6 @@ import { User } from './entities/user.entity';
 import { changePassDto } from './dto/change-pass.dto';
 
 
-@UseGuards(AuthGuard())
-@ApiBearerAuth()
 @ApiTags('user')
 @Controller('users')
 export class UsersController {
@@ -37,8 +35,8 @@ export class UsersController {
   @ApiOperation({
     summary: 'Create a user',
   })
-  create(@Body() dto: CreateUserDto, @LoggedUser() user: User) {
-    return this.usersService.create(dto, user);
+  create(@Body() dto: CreateUserDto) {
+    return this.usersService.create(dto);
   }
 
   @Get()

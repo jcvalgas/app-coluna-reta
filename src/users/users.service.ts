@@ -30,8 +30,7 @@ export class UsersService {
 
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(dto: CreateUserDto, user: User) {
-    role(user);
+  async create(dto: CreateUserDto) {
 
     const data: Prisma.UserCreateInput = {
       ...dto,

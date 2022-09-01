@@ -5,7 +5,7 @@ export class User {
   name: string;
   email: string;
   password: string;
-  role: string;
+  role: boolean;
   institutes?: Institute;
 
   createdAt?: Date;

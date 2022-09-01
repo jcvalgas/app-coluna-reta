@@ -39,7 +39,7 @@ export class CreateUserDto {
     example: false,
   })
   @IsString()
-  role: string;
+  role: boolean;
 
   @ApiProperty({
     description: 'User-related institutes ID',
