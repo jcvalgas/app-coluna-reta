@@ -46,14 +46,4 @@ export class AuthController {
   profile(@LoggedUser() user: User) {
     return { user };
   }
-
-  @UseGuards(AuthGuard())
-  @ApiBearerAuth()
-  @ApiOperation({
-    summary: 'Change user password',
-  })
-  @Put()
-  changePass(@Body() changePassDto: changePassDto, @LoggedUser() user: User) {
-    return this.authService.changePass(changePassDto, user);
-  }
 }

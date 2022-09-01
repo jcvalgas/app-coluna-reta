@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Put,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -15,7 +16,11 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { LoggedUser } from 'src/utils/logged-user.decorator';
 import { User } from './entities/user.entity';
+import { changePassDto } from './dto/change-pass.dto';
 
+
+@UseGuards(AuthGuard())
+@ApiBearerAuth()
 @ApiTags('user')
 @Controller('users')
 export class UsersController {
@@ -28,8 +33,6 @@ export class UsersController {
    * @returns Objeto de status da aplicação
    */
 
-  @UseGuards(AuthGuard())
-  @ApiBearerAuth()
   @Post()
   @ApiOperation({
     summary: 'Create a user',
@@ -38,8 +41,6 @@ export class UsersController {
     return this.usersService.create(dto, user);
   }
 
-  @UseGuards(AuthGuard())
-  @ApiBearerAuth()
   @Get()
   @ApiOperation({
     summary: 'View all users',
@@ -48,8 +49,6 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @UseGuards(AuthGuard())
-  @ApiBearerAuth()
   @Get(':id')
   @ApiOperation({
     summary: 'View users by id or email',
@@ -58,8 +57,6 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
-  @UseGuards(AuthGuard())
-  @ApiBearerAuth()
   @Patch(':id')
   @ApiOperation({
     summary: 'Edit users by id email',
@@ -72,13 +69,19 @@ export class UsersController {
     return this.usersService.update(id, dto, user);
   }
 
-  @UseGuards(AuthGuard())
-  @ApiBearerAuth()
   @Delete(':id')
   @ApiOperation({
     summary: 'Delete users by id or email',
   })
   remove(@Param('id') id: string, @LoggedUser() user: User) {
     return this.usersService.remove(id, user);
+  }
+
+  @ApiOperation({
+    summary: 'Change user password',
+  })
+  @Put()
+  changePass(@Body() changePassDto: changePassDto, @LoggedUser() user: User) {
+    return this.usersService.changePass(changePassDto, user);
   }
 }

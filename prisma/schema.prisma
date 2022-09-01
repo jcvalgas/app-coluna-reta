@@ -52,29 +52,8 @@ model Student {
   institute   Institute @relation(fields: [instituteId], references: [id])
   instituteId String    @map("institute_id")
 
-  historic   Historic @relation(fields: [historicId], references: [id])
-  historicId String    @map("historic_id")
-
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  updatedAt DateTime @updatedAt                                                                                                                             
 
   @@map("student")
-}
-
-model Historic {
-  id           String @id @default(uuid())
-  data         String
-  photo        String
-  forwarding   String
-  angleCobb    String
-  returnDate   String
-  note         String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  students Student[]
-  
-  @@map("historic")
 }

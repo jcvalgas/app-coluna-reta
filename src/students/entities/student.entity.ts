@@ -11,8 +11,7 @@ export class Student {
   description: string;
   user?: User;
   institute?: Institute;
-  historic?: Historic;
-
+  
   createdAt?: Date;
   updatedAt?: Date;
 }

@@ -1,13 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-
 import {
   IsNotEmpty,
   IsPhoneNumber,
   IsString,
-  IsUUID
+  IsUUID,
 } from 'class-validator';
-import { Historic } from 'src/historic/entities/historic.entity';
-
 
 export class CreateStudentDto {
   @ApiProperty({
@@ -53,32 +50,18 @@ export class CreateStudentDto {
   description: string;
 
   @ApiProperty({
-
     description: 'ID of user responsible for the registration',
     example: 'c07437d1-f340-4050-a4d5-adf379830000',
-
   })
   @IsNotEmpty()
   @IsUUID()
   user: string;
 
   @ApiProperty({
-
     description: 'Institute`s student',
     example: '8a4fd390-832d-4f4d-bb21-6face2cec010',
-
   })
   @IsNotEmpty()
   @IsUUID()
   institute: string;
-
-  @ApiProperty({
-
-    description: 'Historic`s student',
-    example: '8a4fd390-832d-4f4d-bb21-6face2cec010',
-
-  })
-  @IsNotEmpty()
-  @IsUUID()
-  historic: Historic;
 }
