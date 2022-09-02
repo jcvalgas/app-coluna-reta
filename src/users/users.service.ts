@@ -30,8 +30,8 @@ export class UsersService {
 
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(dto: CreateUserDto) {
-
+  async create(dto: CreateUserDto,  user: User) {
+    role(user);
     const data: Prisma.UserCreateInput = {
       ...dto,
       institutes: {
@@ -62,7 +62,6 @@ export class UsersService {
 
   async update(id: string, dto: UpdateUserDto, user: User) {
     role(user);
-
     return await this.prisma.user
       .update({
         where: { id },
@@ -80,6 +79,7 @@ export class UsersService {
   }
 
   async changePass(changePassDto: changePassDto, user: User) {
+    
     const userDB = await this.prisma.user.findUnique({
       where: { id: user.id },
     });

@@ -51,7 +51,7 @@ export class CreateStudentDto {
 
   @ApiProperty({
     description: 'ID of user responsible for the registration',
-    example: 'c07437d1-f340-4050-a4d5-adf379830000',
+    example: 'bf026c0d-874b-413e-af94-7c6769cfe248',
   })
   @IsNotEmpty()
   @IsUUID()
@@ -59,7 +59,7 @@ export class CreateStudentDto {
 
   @ApiProperty({
     description: 'Institute`s student',
-    example: '8a4fd390-832d-4f4d-bb21-6face2cec010',
+    example: '64baeaa6-abfb-47a9-997e-607cbf60267f',
   })
   @IsNotEmpty()
   @IsUUID()

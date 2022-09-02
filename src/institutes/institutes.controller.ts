@@ -39,12 +39,6 @@ export class InstitutesController {
     return this.institutesService.findAll(+skip);
   }
 
- /*@Get('/students')
- findAllStudents() {
-   return this.institutesService.findAllStudents();
-  }*/
-  
-
   @Get(':id')
   @ApiOperation({
     summary: 'View institutes by id',
