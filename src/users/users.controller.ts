@@ -18,14 +18,13 @@ import { LoggedUser } from 'src/utils/logged-user.decorator';
 import { User } from './entities/user.entity';
 import { changePassDto } from './dto/change-pass.dto';
 
-
+@UseGuards(AuthGuard())
+@ApiBearerAuth()
 @ApiTags('user')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @UseGuards(AuthGuard())
-  @ApiBearerAuth()
   @Post()
   @ApiOperation({
     summary: 'Create a user',
